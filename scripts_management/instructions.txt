@@ -1,0 +1,16 @@
+new_service.py
+---------------
+new_service.py <arg1> <arg2>
+arg1 - script file name (etc: script.py)
+arg2 - script description without spaces
+return data - 'true' if successful, 'false' if failed
+
+
+manage_service.py
+---------------
+manage_service.py <arg1> <arg2>
+arg1 - command (start, stop, status)
+arg2 - script file name (etc: script.py)
+return data - 
+    for 'start' and 'stop' commands - 'true' or 'false'
+    for 'status' command - 'running' if running, 'enabled' if enabled but not running, 'disabled' if not enabled

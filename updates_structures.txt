@@ -1,0 +1,233 @@
+Callback Update
+-----------------
+
+Array
+(
+    [update_id] => 98570868
+    [callback_query] => Array
+        (
+            [id] => 751521517380822437
+            [from] => Array
+                (
+                    [id] => 174977238
+                    [is_bot] => 
+                    [first_name] => Matan
+                    [last_name] => Cohen
+                    [username] => matan10
+                    [language_code] => he
+                )
+
+            [message] => Array
+                (
+                    [message_id] => 95
+                    [from] => Array
+                        (
+                            [id] => 1203874164
+                            [is_bot] => 1
+                            [first_name] => My Personal Assistant
+                            [username] => MatanPersonalAssistantBot
+                        )
+
+                    [chat] => Array
+                        (
+                            [id] => 174977238
+                            [first_name] => Matan
+                            [last_name] => Cohen
+                            [username] => matan10
+                            [type] => private
+                        )
+
+                    [date] => 1600771159
+                    [text] => Systemd Services 👇
+                    [reply_markup] => Array
+                        (
+                            [inline_keyboard] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [0] => Array
+                                                (
+                                                    [text] => button1
+                                                    [callback_data] => btn1
+                                                )
+
+                                            [1] => Array
+                                                (
+                                                    [text] => button2
+                                                    [callback_data] => btn2
+                                                )
+
+                                        )
+
+                                )
+
+                        )
+
+                )
+
+            [chat_instance] => 1745625105705483779
+            [data] => btn1
+        )
+
+)
+
+
+Text Message
+---------------
+
+Array
+(
+    [update_id] => 98571246
+    [message] => Array
+        (
+            [message_id] => 213
+            [from] => Array
+                (
+                    [id] => 174977238
+                    [is_bot] => 
+                    [first_name] => Matan
+                    [last_name] => Cohen
+                    [username] => matan10
+                    [language_code] => he
+                )
+
+            [chat] => Array
+                (
+                    [id] => 174977238
+                    [first_name] => Matan
+                    [last_name] => Cohen
+                    [username] => matan10
+                    [type] => private
+                )
+
+            [date] => 1601038349
+            [text] => n
+        )
+
+)
+
+
+Edited Text Message
+-------------------
+
+Array
+(
+    [update_id] => 98571247
+    [edited_message] => Array
+        (
+            [message_id] => 213
+            [from] => Array
+                (
+                    [id] => 174977238
+                    [is_bot] => 
+                    [first_name] => Matan
+                    [last_name] => Cohen
+                    [username] => matan10
+                    [language_code] => he
+                )
+
+            [chat] => Array
+                (
+                    [id] => 174977238
+                    [first_name] => Matan
+                    [last_name] => Cohen
+                    [username] => matan10
+                    [type] => private
+                )
+
+            [date] => 1601038349
+            [edit_date] => 1601038356
+            [text] => m
+        )
+
+)
+
+
+
+Bot Command
+-------------
+
+Array
+(
+    [update_id] => 98571248
+    [message] => Array
+        (
+            [message_id] => 216
+            [from] => Array
+                (
+                    [id] => 174977238
+                    [is_bot] => 
+                    [first_name] => Matan
+                    [last_name] => Cohen
+                    [username] => matan10
+                    [language_code] => he
+                )
+
+            [chat] => Array
+                (
+                    [id] => 174977238
+                    [first_name] => Matan
+                    [last_name] => Cohen
+                    [username] => matan10
+                    [type] => private
+                )
+
+            [date] => 1601038540
+            [text] => /start
+            [entities] => Array
+                (
+                    [0] => Array
+                        (
+                            [offset] => 0
+                            [length] => 6
+                            [type] => bot_command
+                        )
+
+                )
+
+        )
+
+)
+
+
+Document
+-----------
+
+Array
+(
+    [update_id] => 98571251
+    [message] => Array
+        (
+            [message_id] => 223
+            [from] => Array
+                (
+                    [id] => 174977238
+                    [is_bot] => 
+                    [first_name] => Matan
+                    [last_name] => Cohen
+                    [username] => matan10
+                    [language_code] => he
+                )
+
+            [chat] => Array
+                (
+                    [id] => 174977238
+                    [first_name] => Matan
+                    [last_name] => Cohen
+                    [username] => matan10
+                    [type] => private
+                )
+
+            [date] => 1601038705
+            [document] => Array
+                (
+                    [file_name] => try.py
+                    [mime_type] => text/x-python
+                    [file_id] => BQACAgQAAxkBAAPfX23pcfxntLCrgTilxh-nBQQufh8AAk0JAAKTYnFTZzlpqrR8qKkbBA
+                    [file_unique_id] => AgADTQkAApNicVM
+                    [file_size] => 98
+                )
+
+        )
+
+)
