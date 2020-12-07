@@ -21,15 +21,16 @@ define("MANAGEMENT_SCRIPTS", $config_json["MANAGEMENT_SCRIPTS"]);
 
 $manage_service_script = MANAGEMENT_SCRIPTS."manage_service.py";
 $new_service_script = MANAGEMENT_SCRIPTS."new_service.py";
+$phone_number_to_person_script = "phone_number_to_person.py";
 
 ini_set('display_errors', 1);
 
-$update = file_get_contents('php://input');   
+$update = file_get_contents('php://input');
 $update = json_decode($update, TRUE);
 
 function curlPost($method, $datas=[]){
 	$urll = "https://api.telegram.org/bot".API_TOKEN."/".$method;
-	
+
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, $urll);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -158,6 +159,9 @@ $main_keyboard = json_encode(array(
 		array( // That array is for the line.
 			array("text" => "Server Status", "callback_data" => "server_status"), // That array is for the column.
 			array("text" => "Systemd Services", "callback_data" => "systemd_services")
+		),
+		array(
+			array("text" => "Phone Number to Person", "callback_data" => "phone_to_person")
 		)
 	)
 ));
@@ -167,6 +171,15 @@ $back_to_main_menu_keyboard = json_encode(array(
     "inline_keyboard" => array( // That array is for the buttons.
 		array( // That array is for the line.
 			array("text" => "👈 Back to Main Menu", "callback_data" => "main_menu") // That array is for the column.
+		)
+	)
+));
+
+// Cancel keyboard.
+$cancel_keyboard = json_encode(array(
+    "inline_keyboard" => array(
+		array(
+			array("text" => "⛔ Cancel", "callback_data" => "main_menu")
 		)
 	)
 ));
@@ -278,6 +291,9 @@ function build_service_manage_keyboard($script_name) {
 
 // Messages
 $welcome_message = "Hello!\nWelcome to your personal assistant.\nI'm here to help you with all your needs.";
+// Server status
+$server_is_on_message = "Server is on ✅";
+// Systemd services
 $services_welcome_message = "Here you can manage your scripts.";
 $services_scripts_message = "Here is the list of all of your scripts 👇\n";
 $choose_file_type_message = "Choose script file type from the list below 👇";
@@ -285,9 +301,9 @@ $get_description_message = "Send service description:";
 $get_script_file_message = "Send the script file:";
 $new_script_added_successfully_message = "Congratulations!\nThe script added successfully.\nYou can manage the script in the 'Systemd Services' tab.";
 $new_script_added_failed_message = "Sorry, but there was a problem adding the script...";
-$server_is_on = "Server is on ✅";
 $document_without_purpose_message = "Sorry, but I didn't understand what the document is intended for...";
-
+// Phone number to Person
+$send_phone_number_message = "Send phone number:";
 
 
 // Text Messages.
@@ -312,7 +328,11 @@ if ($chat_id == MY_ID) {
 			sendMessage($document_without_purpose_message, $chat_id, $back_to_main_menu_keyboard);
 		}
 	} else { // Text message
-		if (ManageStates::get_waiting_for_description() === true) {
+		if ($text == "/start") {
+
+			ManageStates::reset_states();
+			sendMessage($welcome_message, $chat_id, $main_keyboard);
+		} elseif (ManageStates::get_waiting_for_description() === true) {
 
 			// Declare expect to file.
 			ManageStates::set_waiting_for_description(false);
@@ -322,12 +342,13 @@ if ($chat_id == MY_ID) {
 			ManageStates::set_description($description);
 			sendMessage($get_script_file_message, $chat_id, $cancel_new_script_keyboard);
 
-		} else {
-			if ($text == "/start") {
+		} elseif (ManageStates::get_waiting_for_phone_number() == true) {
 
-				ManageStates::reset_states();
-				sendMessage($welcome_message, $chat_id, $main_keyboard);
-			}
+			// Got phone number.
+			$phone_number = $text;
+			$out = shell_exec("python3 phone_number_to_person.py $phone_number");
+			sendMessageWPM(print_r($out, true), $chat_id, $cancel_keyboard);
+
 		}
 	}
 } else {
@@ -347,7 +368,12 @@ if (isset($callback_data)) {
 
 	} elseif ($callback_data == "server_status") {
 
-		editMessage($server_is_on, $call_chat_id, $message_id, $back_to_main_menu_keyboard);
+		editMessage($server_is_on_message, $call_chat_id, $message_id, $back_to_main_menu_keyboard);
+
+	} elseif ($callback_data == "phone_to_person") {
+
+		ManageStates::set_waiting_for_phone_number(true);
+		editMessage($send_phone_number_message, $call_chat_id, $message_id, $cancel_keyboard);
 
 	} elseif ($callback_data == "systemd_services") {
 
